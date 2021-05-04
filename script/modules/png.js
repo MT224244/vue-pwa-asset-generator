@@ -11,9 +11,10 @@ const MASKABLE = "maskable";
  * @param {string} name name of the created asset
  * @param {number} size created asset size
  * @param {boolean} displaySize display size in the name
+ * @param {string} background background color for apple-touch-icon
  * @return {object} the json item to put on the manifest file
  */
-const resize = async (asset, pathOutput, name, size, displaySize = true) => {
+const resize = async (asset, pathOutput, name, size, displaySize = true, background) => {
   const sizeSuffix = displaySize ? `-${size}x${size}` : "";
   const filename = `${name}${sizeSuffix}.png`;
 
@@ -21,6 +22,12 @@ const resize = async (asset, pathOutput, name, size, displaySize = true) => {
     background: "transparent",
     fit: "contain",
   });
+
+  if (background) {
+    sharped = sharped.flatten({
+      background
+    });
+  }
 
   if (isSvgAsset(asset)) {
     sharped = sharped.png();

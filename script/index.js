@@ -22,15 +22,24 @@ const main = () => {
       type: "string",
       demandOption: true,
     })
-    .option("o", { alias: "output", describe: "folder output", type: "string", default: false })
+    .option("o", {
+      alias: "output",
+      describe: "folder output",
+      type: "string",
+      default: false
+    })
     .option("manifest", {
       describe: "generate manifest.json file",
       type: "boolean",
       default: true,
+    })
+    .option("background", {
+      describe: "background color of apple-touch-icon",
+      type: "string"
     }).argv;
 
   const withManifest = options.manifest;
-  
+
   const publicFolderPath = createOutputFolder(path.normalize(options.output || "public" || ""));
   const iconFolderPath = createOutputFolder(path.normalize(options.output || "public/img/icons" || ""));
 
@@ -54,12 +63,12 @@ const main = () => {
     ["android-chrome", 512],
     ["android-chrome-maskable", 192],
     ["android-chrome-maskable", 512],
-    ["apple-touch-icon", 60],
-    ["apple-touch-icon", 76],
-    ["apple-touch-icon", 120],
-    ["apple-touch-icon", 152],
-    ["apple-touch-icon", 180],
-    ["apple-touch-icon", 180, false],
+    ["apple-touch-icon", 60, true, options.background],
+    ["apple-touch-icon", 76, true, options.background],
+    ["apple-touch-icon", 120, true, options.background],
+    ["apple-touch-icon", 152, true, options.background],
+    ["apple-touch-icon", 180, true, options.background],
+    ["apple-touch-icon", 180, false, options.background],
     ["favicon", 16],
     ["favicon", 32],
     ["msapplication-icon", 144],
